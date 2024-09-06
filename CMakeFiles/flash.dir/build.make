@@ -68,7 +68,7 @@ include CMakeFiles/flash.dir/progress.make
 
 CMakeFiles/flash: bin/blink
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/jiwon/sumobot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Flashing the MSP430 device"
-	env LD_LIBRARY_PATH=/home/jiwon/dev/tools/ccs1280/ccs/ccs_base/DebugServer/drivers:/home/jiwon/dev/tools/ccs1280/ccs/ccs_base/DebugServer/bin LD_LIBRARY_PATH=/home/jiwon/dev/tools/ccs1280/ccs/ccs_base/DebugServer/drivers /home/jiwon/dev/tools/ccs1280/ccs/ccs_base/DebugServer/bin/mspdebug tilib prog\ /home/jiwon/sumobot/bin/blink
+	env LD_LIBRARY_PATH=/ccs1280/ccs/ccs_base/DebugServer/drivers:/ccs1280/ccs/ccs_base/DebugServer/bin LD_LIBRARY_PATH=/ccs1280/ccs/ccs_base/DebugServer/drivers /ccs1280/ccs/ccs_base/DebugServer/bin/mspdebug tilib prog\ /home/jiwon/sumobot/bin/blink
 
 flash: CMakeFiles/flash
 flash: CMakeFiles/flash.dir/build.make

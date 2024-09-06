@@ -68,7 +68,7 @@ include CMakeFiles/cppcheck.dir/progress.make
 
 CMakeFiles/cppcheck:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/jiwon/sumobot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Running cppcheck"
-	/usr/bin/cppcheck --quiet --enable=all --error-exitcode=1 --inline-suppr -I/home/jiwon/dev/tools/msp430-gcc/include src/main.c
+	/usr/bin/cppcheck --quiet --enable=all --error-exitcode=1 --inline-suppr -I/msp430-gcc/include src/main.c
 
 cppcheck: CMakeFiles/cppcheck
 cppcheck: CMakeFiles/cppcheck.dir/build.make

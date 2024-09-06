@@ -73,15 +73,15 @@ CMakeFiles/blink.dir/src/main.c.o: CMakeFiles/blink.dir/flags.make
 CMakeFiles/blink.dir/src/main.c.o: src/main.c
 CMakeFiles/blink.dir/src/main.c.o: CMakeFiles/blink.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jiwon/sumobot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/blink.dir/src/main.c.o"
-	/home/jiwon/dev/tools/msp430-gcc/bin/msp430-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/blink.dir/src/main.c.o -MF CMakeFiles/blink.dir/src/main.c.o.d -o CMakeFiles/blink.dir/src/main.c.o -c /home/jiwon/sumobot/src/main.c
+	/msp430-gcc/bin/msp430-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/blink.dir/src/main.c.o -MF CMakeFiles/blink.dir/src/main.c.o.d -o CMakeFiles/blink.dir/src/main.c.o -c /home/jiwon/sumobot/src/main.c
 
 CMakeFiles/blink.dir/src/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/blink.dir/src/main.c.i"
-	/home/jiwon/dev/tools/msp430-gcc/bin/msp430-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/jiwon/sumobot/src/main.c > CMakeFiles/blink.dir/src/main.c.i
+	/msp430-gcc/bin/msp430-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/jiwon/sumobot/src/main.c > CMakeFiles/blink.dir/src/main.c.i
 
 CMakeFiles/blink.dir/src/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/blink.dir/src/main.c.s"
-	/home/jiwon/dev/tools/msp430-gcc/bin/msp430-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/jiwon/sumobot/src/main.c -o CMakeFiles/blink.dir/src/main.c.s
+	/msp430-gcc/bin/msp430-elf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/jiwon/sumobot/src/main.c -o CMakeFiles/blink.dir/src/main.c.s
 
 # Object files for target blink
 blink_OBJECTS = \

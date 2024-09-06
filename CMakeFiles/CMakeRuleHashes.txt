@@ -1,0 +1,4 @@
+# Hashes of file build rules.
+1a2b9e34ab20fcc15751959e85278238 CMakeFiles/cppcheck
+588151f7db30366b1c996e7cc2da89b9 CMakeFiles/distclean
+e112f9f46ba51c8f9afdaa32f9d36bff CMakeFiles/flash

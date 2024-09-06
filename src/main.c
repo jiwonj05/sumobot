@@ -6,7 +6,15 @@ int sum(int a, int b)
 
 int main(void)
 {
-	int arr[5] = {0};
+	const arr[5] = {0};
+	
+	int a = 5;
+	int b = 2;
+
+	sum(a,b);
+
+
 	return arr[1];
+
 
 }

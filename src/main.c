@@ -6,7 +6,6 @@ int sum(int a, int b)
 
 int main(void)
 {
-	const arr[5] = {0};
 	
 	int a = 5;
 	int b = 2;
@@ -14,7 +13,7 @@ int main(void)
 	sum(a,b);
 
 
-	return arr[1];
+	return 0;
 
 
 }

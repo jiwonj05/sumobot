@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(BlinkLED_MSP430 C)
 
 # Set tools directory
-set(TOOLS_DIR ${TOOLS_PATH})
+set(TOOLS_DIR $ENV{TOOLS_PATH})
 
 
 # Set toolchain root directory

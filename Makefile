@@ -57,10 +57,12 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jiwon/sumobot
+#CMAKE_SOURCE_DIR = /home/jiwon/sumobot
+CMAKE_SOURCE_DIR = jiwonj05/sumobot
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jiwon/sumobot
+#CMAKE_BINARY_DIR = /home/jiwon/sumobot
+CMAKE_BINARY_DIR = jiwonj05/sumobot
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,10 +88,16 @@ rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
 # The main all target
+#all: cmake_check_build_system
+#	$(CMAKE_COMMAND) -E cmake_progress_start /home/jiwon/sumobot/CMakeFiles /home/jiwon/sumobot//CMakeFiles/progress.marks
+#	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+#	$(CMAKE_COMMAND) -E cmake_progress_start /home/jiwon/sumobot/CMakeFiles 0
+#.PHONY : all
+
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jiwon/sumobot/CMakeFiles /home/jiwon/sumobot//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start jiwonj05/sumobot/CMakeFiles jiwonj05/sumobot/CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jiwon/sumobot/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start jiwonj05/sumobot/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

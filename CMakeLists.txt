@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 project(BlinkLED_MSP430 C)
 
 # Set toolchain root directory
-set(MSPGCC_ROOT_DIR /home/jiwon/dev/tools/msp430-gcc)
+set(TOOLS_DIR $ENV{TOOLS_PATH})
+set(MSPGCC_ROOT_DIR ${TOOLS_DIR}/msp430-gcc)
 set(MSPGCC_BIN_DIR ${MSPGCC_ROOT_DIR}/bin)
 set(MSPGCC_INCLUDE_DIR ${MSPGCC_ROOT_DIR}/include)
 
@@ -22,7 +23,7 @@ endif()
 
 # Set the microcontroller and compilation flags
 set(MCU msp430g2553)
-set(LINKER_SCRIPT_PATH /home/jiwon/dev/tools/msp430-gcc/include/msp430g2553.ld) # Update this path
+set(LINKER_SCRIPT_PATH ${TOOLS_DIR}/msp430-gcc/include/msp430g2553.ld) # Update this path
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -I${MSPGCC_INCLUDE_DIR} -Og -g -Wall -Wextra -Werror -Wshadow")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} ")
@@ -45,7 +46,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 add_executable(blink ${SOURCES})
 
 # Set Debug tool paths
-set(TI_CCS_DIR /home/jiwon/dev/tools/ccs1280/ccs)
+set(TI_CCS_DIR ${TOOLS_DIR}/ccs1280/ccs)
 set(DEBUG_BIN_DIR ${TI_CCS_DIR}/ccs_base/DebugServer/bin)
 set(DEBUG_DRIVERS_DIR ${TI_CCS_DIR}/ccs_base/DebugServer/drivers)
 set(DEBUG LD_LIBRARY_PATH=${DEBUG_DRIVERS_DIR} ${DEBUG_BIN_DIR}/mspdebug)

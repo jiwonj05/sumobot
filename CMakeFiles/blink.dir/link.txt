@@ -1,1 +1,0 @@
-/home/jiwon/dev/tools/msp430-gcc/bin/msp430-elf-gcc  -mmcu=msp430g2553 -I/home/jiwon/dev/tools/msp430-gcc/include -Og -g -Wall -Wextra -Werror -Wshadow  -mmcu=msp430g2553 -L/home/jiwon/dev/tools/msp430-gcc/include -T/home/jiwon/dev/tools/msp430-gcc/include/msp430g2553.ld  CMakeFiles/blink.dir/src/main.c.o -o bin/blink 

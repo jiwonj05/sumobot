@@ -1,14 +1,14 @@
 int sum(int a, int b)
 {
-	return a + b;
+    return a + b;
 }
 
 int main(void)
 {
-	int a = 5;
-	int b = 2;
+    int a = 5;
+    int b = 2;
 
-	sum(a,b);
+    sum(a, b);
 
-	return 0;
+    return 0;
 }

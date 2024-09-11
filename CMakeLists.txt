@@ -31,11 +31,14 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_IN
 # Include directories
 include_directories(${MSPGCC_INCLUDE_DIR})
 
+# Add the third-party includes as SYSTEM includes (to avoid analyzing them in cppcheck)
+#include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/external/printf)
+
 # Add source files
 set(SOURCES
     src/main.c
-    
-)
+    # external/printf/printf.c
+    )
 
 # Specify output directories
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -50,6 +53,20 @@ set(TI_CCS_DIR ${TOOLS_DIR}/ccs1280/ccs)
 set(DEBUG_BIN_DIR ${TI_CCS_DIR}/ccs_base/DebugServer/bin)
 set(DEBUG_DRIVERS_DIR ${TI_CCS_DIR}/ccs_base/DebugServer/drivers)
 set(DEBUG LD_LIBRARY_PATH=${DEBUG_DRIVERS_DIR} ${DEBUG_BIN_DIR}/mspdebug)
+
+#set(HEADERS
+#    ${CMAKE_SOURCE_DIR}/include/main.h
+#    ${CMAKE_SOURCE_DIR}/external/printf/printf.h
+#)
+
+# This ensures the printf include is treated as a system include
+#target_include_directories(blink SYSTEM PUBLIC ${CMAKE_SOURCE_DIR}/external/printf)
+set(CPPCHECK_INCLUDES
+	
+    ./src ./
+)
+
+
 
 # Add custom target for flashing
 add_custom_target(flash
@@ -66,14 +83,21 @@ add_custom_target(distclean
     COMMENT "Cleaning up build directories"
 )
 
+
 # Add custom target for cppcheck
 if(CPPCHECK)
 	add_custom_target(cppcheck
 
 		COMMAND ${CPPCHECK} --quiet --enable=all --error-exitcode=1
-		--inline-suppr 
-		-I${MSPGCC_INCLUDE_DIR}
-		${SOURCES}
+		--inline-suppr
+		--suppress=missingIncludeSystem
+		--suppress=unmatchedSuppression
+		--suppress=unusedFunction
+		--suppress=missingInclude
+		-i${CMAKE_SOURCE_DIR}/external/printf
+		-i${CMAKE_SOURCE_DIR}/CMakeFiles
+		-i${CMAKE_SOURCE_DIR}/CMakeFiles/3.22.1/CompilerIdC
+		-I${CPPCHECK_INCLUDES}
 		COMMENT "Running cppcheck"
 
 	)

@@ -1,10 +1,8 @@
 #ifndef IO_H
 #define IO_H
 
-//TODO: Improve multiple HW targets handling
+// TODO: Improve multiple HW targets handling
 #define LAUNCHPAD
-
-
 
 typedef enum
 {
@@ -53,7 +51,7 @@ typedef enum
 #endif
 } io_e;
 
-typedef enum 
+typedef enum
 {
     IO_SELECT_GPIO,
     IO_SELECT_ALT1,
@@ -86,31 +84,13 @@ typedef enum
     IO_IN_HIGH,
 } io_in_e;
 
+// TODO: structs
 
-
-
-
-//TODO: structs
-
-
-
-
-
-//TODO: functions
+// TODO: functions
 void io_set_select(io_e io, io_select_e select);
 void io_set_direction(io_e io, io_dir_e direction);
 void io_set_resistor(io_e io, io_resistor_e resistor);
 void io_set_out(io_e io, io_out_e out);
 io_in_e io_get_input(io_e io);
 
-
 #endif // IO_H
-
-
-
-
-
-
-
-
-

@@ -168,6 +168,19 @@ cppcheck/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cppcheck.dir/build.make CMakeFiles/cppcheck.dir/build
 .PHONY : cppcheck/fast
 
+#=============================================================================
+# Target rules for targets named format
+
+# Build rule for target.
+format: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 format
+.PHONY : format
+
+# fast build rule for target.
+format/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/format.dir/build.make CMakeFiles/format.dir/build
+.PHONY : format/fast
+
 src/drivers/io.o: src/drivers/io.c.o
 .PHONY : src/drivers/io.o
 
@@ -227,6 +240,7 @@ help:
 	@echo "... cppcheck"
 	@echo "... distclean"
 	@echo "... flash"
+	@echo "... format"
 	@echo "... blink"
 	@echo "... src/drivers/io.o"
 	@echo "... src/drivers/io.i"

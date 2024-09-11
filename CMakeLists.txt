@@ -19,6 +19,14 @@ else()
 	message(WARNING "cppcheck not found")
 endif()
 
+# Set clang format
+find_program(CLANG_FORMAT clang-format-12)
+
+if(CLANG_FORMAT)
+	message(STATUS "clang format found: ${CLANG_FORMAT}")
+else()
+        message(WARNING "clang format not found")
+endif()
 
 
 # Set the microcontroller and compilation flags
@@ -85,6 +93,14 @@ set(CPPCHECK_INCLUDES
     ./src ./
 )
 
+set(FORMAT_FOLDER ${CMAKE_SOURCE_DIR}/src)
+
+file(GLOB_RECURSE FORMAT_FILES
+    ${FORMAT_FOLDER}/*.c
+    ${FORMAT_FOLDER}/*.h    
+	
+)
+
 
 
 # Add custom target for flashing
@@ -104,7 +120,7 @@ add_custom_target(distclean
 
 
 # Add custom target for cppcheck
-if(CPPCHECK)
+#if(CPPCHECK)
 	add_custom_target(cppcheck
 
 		COMMAND ${CPPCHECK} --quiet --enable=all --error-exitcode=1
@@ -120,7 +136,16 @@ if(CPPCHECK)
 		COMMENT "Running cppcheck"
 
 	)
-endif()
+#endif()
 
+# Add custom target for clang format
 
+add_custom_target(format
+
+	COMMAND ${CLANG_FORMAT}
+	-i ${FORMAT_FILES}
+	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+	COMMENT "Formatting files"
+	
+)
 

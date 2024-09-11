@@ -1,0 +1,4 @@
+# Exclude directories
+
+./CMakeFiles/
+./external/printf/

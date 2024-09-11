@@ -168,6 +168,30 @@ cppcheck/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cppcheck.dir/build.make CMakeFiles/cppcheck.dir/build
 .PHONY : cppcheck/fast
 
+src/drivers/io.o: src/drivers/io.c.o
+.PHONY : src/drivers/io.o
+
+# target to build an object file
+src/drivers/io.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/io.c.o
+.PHONY : src/drivers/io.c.o
+
+src/drivers/io.i: src/drivers/io.c.i
+.PHONY : src/drivers/io.i
+
+# target to preprocess a source file
+src/drivers/io.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/io.c.i
+.PHONY : src/drivers/io.c.i
+
+src/drivers/io.s: src/drivers/io.c.s
+.PHONY : src/drivers/io.s
+
+# target to generate assembly for a file
+src/drivers/io.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/io.c.s
+.PHONY : src/drivers/io.c.s
+
 src/main.o: src/main.c.o
 .PHONY : src/main.o
 
@@ -204,6 +228,9 @@ help:
 	@echo "... distclean"
 	@echo "... flash"
 	@echo "... blink"
+	@echo "... src/drivers/io.o"
+	@echo "... src/drivers/io.i"
+	@echo "... src/drivers/io.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

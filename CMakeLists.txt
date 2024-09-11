@@ -28,16 +28,35 @@ set(LINKER_SCRIPT_PATH ${TOOLS_DIR}/msp430-gcc/include/msp430g2553.ld) # Update 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -I${MSPGCC_INCLUDE_DIR} -Og -g -Wall -Wextra -Werror -Wshadow")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} ")
 
-# Include directories
-include_directories(${MSPGCC_INCLUDE_DIR})
+# Set source directory
+set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
+            
+# Set headers directories
+set(HEADER_DIR
+    ${MSPGCC_INCLUDE_DIR}
+    src/drivers
+    ${SOURCE_DIR}/common
+    ${SOURCE_DIR}/app
+    ${SOURCE_DIR}/test
+    )
 
-# Add the third-party includes as SYSTEM includes (to avoid analyzing them in cppcheck)
-#include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/external/printf)
+# Include directories for header files
+include_directories(${HEADER_DIR})
+
+
+
+# Source Files with headers
+set(SOURCES_HEADER
+    src/drivers/io.c
+    # external/printf/printf.c
+
+   )
+
 
 # Add source files
 set(SOURCES
+    ${SOURCES_HEADER}
     src/main.c
-    # external/printf/printf.c
     )
 
 # Specify output directories

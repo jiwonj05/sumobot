@@ -4,7 +4,7 @@
 
 static void test_setup(void)
 {
-   mcu_init();
+    mcu_init();
 }
 
 static void test_blink_led(void)

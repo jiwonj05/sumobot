@@ -5,13 +5,9 @@
 static void watchdog_stop(void)
 {
     WDTCTL = WDTPW + WDTHOLD;
-
 }
 
 void mcu_init(void)
 {
     watchdog_stop();
-
 }
-
-

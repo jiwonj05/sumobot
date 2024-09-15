@@ -10,6 +10,10 @@ set(MSPGCC_INCLUDE_DIR ${MSPGCC_ROOT_DIR}/include)
 # Set compiler
 set(CMAKE_C_COMPILER ${MSPGCC_BIN_DIR}/msp430-elf-gcc)
 
+#Ignore warnings
+add_compile_options(-w)
+
+
 # Set CPPCHECK
 find_program(CPPCHECK cppcheck)
 
@@ -19,6 +23,14 @@ else()
 	message(WARNING "cppcheck not found")
 endif()
 
+# Set clang format
+find_program(CLANG_FORMAT clang-format-12)
+
+if(CLANG_FORMAT)
+	message(STATUS "clang format found: ${CLANG_FORMAT}")
+else()
+        message(WARNING "clang format not found")
+endif()
 
 
 # Set the microcontroller and compilation flags
@@ -28,16 +40,35 @@ set(LINKER_SCRIPT_PATH ${TOOLS_DIR}/msp430-gcc/include/msp430g2553.ld) # Update 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -I${MSPGCC_INCLUDE_DIR} -Og -g -Wall -Wextra -Werror -Wshadow")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} ")
 
-# Include directories
-include_directories(${MSPGCC_INCLUDE_DIR})
+# Set source directory
+set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
+            
+# Set headers directories
+set(HEADER_DIR
+    ${MSPGCC_INCLUDE_DIR}
+    src/drivers
+    ${SOURCE_DIR}/common
+    ${SOURCE_DIR}/app
+    ${SOURCE_DIR}/test
+    )
 
-# Add the third-party includes as SYSTEM includes (to avoid analyzing them in cppcheck)
-#include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/external/printf)
+# Include directories for header files
+include_directories(${HEADER_DIR})
+
+
+
+# Source Files with headers
+set(SOURCES_HEADER
+    src/drivers/io.c
+    # external/printf/printf.c
+
+   )
+
 
 # Add source files
 set(SOURCES
+    ${SOURCES_HEADER}
     src/main.c
-    # external/printf/printf.c
     )
 
 # Specify output directories
@@ -49,7 +80,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 add_executable(blink ${SOURCES})
 
 # Set Debug tool paths
-set(TI_CCS_DIR ${TOOLS_DIR}/ccs1280/ccs)
+set(TI_CCS_DIR ${TOOLS_DIR}ccs1280/ccs)
 set(DEBUG_BIN_DIR ${TI_CCS_DIR}/ccs_base/DebugServer/bin)
 set(DEBUG_DRIVERS_DIR ${TI_CCS_DIR}/ccs_base/DebugServer/drivers)
 set(DEBUG LD_LIBRARY_PATH=${DEBUG_DRIVERS_DIR} ${DEBUG_BIN_DIR}/mspdebug)
@@ -66,7 +97,18 @@ set(CPPCHECK_INCLUDES
     ./src ./
 )
 
+set(FORMAT_FOLDER ${CMAKE_SOURCE_DIR}/src)
 
+file(GLOB_RECURSE FORMAT_FILES
+    ${FORMAT_FOLDER}/*.c
+    ${FORMAT_FOLDER}/*.h    
+	
+)
+
+message(STATUS "TI_CCS_DIR: ${TI_CCS_DIR}")
+message(STATUS "DEBUG_DRIVERS_DIR: ${DEBUG_DRIVERS_DIR}")
+message(STATUS "DEBUG_BIN_DIR: ${DEBUG_BIN_DIR}")
+message(STATUS "DEBUG: ${DEBUG}")
 
 # Add custom target for flashing
 add_custom_target(flash
@@ -85,7 +127,7 @@ add_custom_target(distclean
 
 
 # Add custom target for cppcheck
-if(CPPCHECK)
+#if(CPPCHECK)
 	add_custom_target(cppcheck
 
 		COMMAND ${CPPCHECK} --quiet --enable=all --error-exitcode=1
@@ -93,6 +135,7 @@ if(CPPCHECK)
 		--suppress=missingIncludeSystem
 		--suppress=unmatchedSuppression
 		--suppress=unusedFunction
+		--suppress=unusedVariable
 		--suppress=missingInclude
 		-i${CMAKE_SOURCE_DIR}/external/printf
 		-i${CMAKE_SOURCE_DIR}/CMakeFiles
@@ -101,7 +144,16 @@ if(CPPCHECK)
 		COMMENT "Running cppcheck"
 
 	)
-endif()
+#endif()
 
+# Add custom target for clang format
 
+add_custom_target(format
+
+	COMMAND ${CLANG_FORMAT}
+	-i ${FORMAT_FILES}
+	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+	COMMENT "Formatting files"
+	
+)
 

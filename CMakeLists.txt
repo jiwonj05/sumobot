@@ -10,6 +10,10 @@ set(MSPGCC_INCLUDE_DIR ${MSPGCC_ROOT_DIR}/include)
 # Set compiler
 set(CMAKE_C_COMPILER ${MSPGCC_BIN_DIR}/msp430-elf-gcc)
 
+#Ignore warnings
+add_compile_options(-w)
+
+
 # Set CPPCHECK
 find_program(CPPCHECK cppcheck)
 
@@ -76,7 +80,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 add_executable(blink ${SOURCES})
 
 # Set Debug tool paths
-set(TI_CCS_DIR ${TOOLS_DIR}/ccs1280/ccs)
+set(TI_CCS_DIR ${TOOLS_DIR}ccs1280/ccs)
 set(DEBUG_BIN_DIR ${TI_CCS_DIR}/ccs_base/DebugServer/bin)
 set(DEBUG_DRIVERS_DIR ${TI_CCS_DIR}/ccs_base/DebugServer/drivers)
 set(DEBUG LD_LIBRARY_PATH=${DEBUG_DRIVERS_DIR} ${DEBUG_BIN_DIR}/mspdebug)
@@ -101,7 +105,10 @@ file(GLOB_RECURSE FORMAT_FILES
 	
 )
 
-
+message(STATUS "TI_CCS_DIR: ${TI_CCS_DIR}")
+message(STATUS "DEBUG_DRIVERS_DIR: ${DEBUG_DRIVERS_DIR}")
+message(STATUS "DEBUG_BIN_DIR: ${DEBUG_BIN_DIR}")
+message(STATUS "DEBUG: ${DEBUG}")
 
 # Add custom target for flashing
 add_custom_target(flash
@@ -128,6 +135,7 @@ add_custom_target(distclean
 		--suppress=missingIncludeSystem
 		--suppress=unmatchedSuppression
 		--suppress=unusedFunction
+		--suppress=unusedVariable
 		--suppress=missingInclude
 		-i${CMAKE_SOURCE_DIR}/external/printf
 		-i${CMAKE_SOURCE_DIR}/CMakeFiles

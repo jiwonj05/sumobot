@@ -181,6 +181,30 @@ format/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/format.dir/build.make CMakeFiles/format.dir/build
 .PHONY : format/fast
 
+src/common/assert_handler.o: src/common/assert_handler.c.o
+.PHONY : src/common/assert_handler.o
+
+# target to build an object file
+src/common/assert_handler.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/common/assert_handler.c.o
+.PHONY : src/common/assert_handler.c.o
+
+src/common/assert_handler.i: src/common/assert_handler.c.i
+.PHONY : src/common/assert_handler.i
+
+# target to preprocess a source file
+src/common/assert_handler.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/common/assert_handler.c.i
+.PHONY : src/common/assert_handler.c.i
+
+src/common/assert_handler.s: src/common/assert_handler.c.s
+.PHONY : src/common/assert_handler.s
+
+# target to generate assembly for a file
+src/common/assert_handler.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/common/assert_handler.c.s
+.PHONY : src/common/assert_handler.c.s
+
 src/drivers/io.o: src/drivers/io.c.o
 .PHONY : src/drivers/io.o
 
@@ -204,6 +228,54 @@ src/drivers/io.s: src/drivers/io.c.s
 src/drivers/io.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/io.c.s
 .PHONY : src/drivers/io.c.s
+
+src/drivers/led.o: src/drivers/led.c.o
+.PHONY : src/drivers/led.o
+
+# target to build an object file
+src/drivers/led.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/led.c.o
+.PHONY : src/drivers/led.c.o
+
+src/drivers/led.i: src/drivers/led.c.i
+.PHONY : src/drivers/led.i
+
+# target to preprocess a source file
+src/drivers/led.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/led.c.i
+.PHONY : src/drivers/led.c.i
+
+src/drivers/led.s: src/drivers/led.c.s
+.PHONY : src/drivers/led.s
+
+# target to generate assembly for a file
+src/drivers/led.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/led.c.s
+.PHONY : src/drivers/led.c.s
+
+src/drivers/mcu_init.o: src/drivers/mcu_init.c.o
+.PHONY : src/drivers/mcu_init.o
+
+# target to build an object file
+src/drivers/mcu_init.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/mcu_init.c.o
+.PHONY : src/drivers/mcu_init.c.o
+
+src/drivers/mcu_init.i: src/drivers/mcu_init.c.i
+.PHONY : src/drivers/mcu_init.i
+
+# target to preprocess a source file
+src/drivers/mcu_init.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/mcu_init.c.i
+.PHONY : src/drivers/mcu_init.c.i
+
+src/drivers/mcu_init.s: src/drivers/mcu_init.c.s
+.PHONY : src/drivers/mcu_init.s
+
+# target to generate assembly for a file
+src/drivers/mcu_init.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/mcu_init.c.s
+.PHONY : src/drivers/mcu_init.c.s
 
 src/main.o: src/main.c.o
 .PHONY : src/main.o
@@ -242,9 +314,18 @@ help:
 	@echo "... flash"
 	@echo "... format"
 	@echo "... blink"
+	@echo "... src/common/assert_handler.o"
+	@echo "... src/common/assert_handler.i"
+	@echo "... src/common/assert_handler.s"
 	@echo "... src/drivers/io.o"
 	@echo "... src/drivers/io.i"
 	@echo "... src/drivers/io.s"
+	@echo "... src/drivers/led.o"
+	@echo "... src/drivers/led.i"
+	@echo "... src/drivers/led.s"
+	@echo "... src/drivers/mcu_init.o"
+	@echo "... src/drivers/mcu_init.i"
+	@echo "... src/drivers/mcu_init.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

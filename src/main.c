@@ -1,10 +1,18 @@
 #include <msp430.h>
 #include "io.h"
 #include "mcu_init.h"
+#include "assert_handler.h"
 
 static void test_setup(void)
 {
     mcu_init();
+}
+
+// TODO: Move to test file
+static void test_assert(void)
+{
+    test_setup();
+    ASSERT(0);
 }
 
 static void test_blink_led(void)
@@ -36,7 +44,8 @@ static void test_blink_led(void)
 
 int main(void)
 {
-    WDTCTL = WDTPW + WDTHOLD;
-    test_blink_led();
+    test_assert();
+    // WDTCTL = WDTPW + WDTHOLD;
+    // test_blink_led();
     return 0;
 }

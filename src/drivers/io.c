@@ -51,7 +51,7 @@ static volatile uint8_t *const port_sel2_regs[IO_PORT_CNT] = { &P1SEL2, &P2SEL2,
 
 #define UNUSED_CONFIG                                                                              \
     {                                                                                              \
-        IO_SELECT_GPIO, IO_RESISTOR_ENABLED, IO_DIR_OUTPUT, IO_OUTPUT_LOW                          \
+        IO_SELECT_GPIO, IO_RESISTOR_ENABLED, IO_DIR_OUTPUT, IO_OUT_LOW                             \
     }
 
 // This array holds the initial configuration for all IO pins
@@ -69,18 +69,9 @@ static const struct io_config io_initial_configs[IO_PORT_CNT * IO_PIN_CNT_PER_PO
 
 #if defined(LAUNCHPAD)
     // Unused pins
-    [IO_UNUSED_1] = UNUSED_CONFIG,
     [IO_UNUSED_2] = UNUSED_CONFIG,
     [IO_UNUSED_3] = UNUSED_CONFIG,
-    [IO_UNUSED_4] = UNUSED_CONFIG,
-    [IO_UNUSED_5] = UNUSED_CONFIG,
-    [IO_UNUSED_6] = UNUSED_CONFIG,
-    [IO_UNUSED_7] = UNUSED_CONFIG,
-    [IO_UNUSED_8] = UNUSED_CONFIG,
-    [IO_UNUSED_9] = UNUSED_CONFIG,
-    [IO_UNUSED_10] = UNUSED_CONFIG,
     [IO_UNUSED_11] = UNUSED_CONFIG,
-    [IO_UNUSED_12] = UNUSED_CONFIG,
     [IO_UNUSED_13] = UNUSED_CONFIG,
 #elif defined(SBOT)
     // Input (no resistor required according to datasheet)
@@ -141,6 +132,10 @@ void io_configure(io_e io, const struct io_config *config)
     io_set_direction(io, config->dir);
     io_set_out(io, config->out);
     io_set_resistor(io, config->resistor);
+}
+
+void io_get_current_config(io_e io, struct io_config *current_config)
+{
 }
 
 void io_set_select(io_e io, io_select_e select)

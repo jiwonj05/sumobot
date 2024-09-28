@@ -11,7 +11,7 @@ set(MSPGCC_INCLUDE_DIR ${MSPGCC_ROOT_DIR}/include)
 set(CMAKE_C_COMPILER ${MSPGCC_BIN_DIR}/msp430-elf-gcc)
 
 #Ignore warnings
-add_compile_options(-w)
+#add_compile_options(-w)
 
 # Set CPPCHECK
 find_program(CPPCHECK cppcheck)
@@ -118,7 +118,7 @@ file(GLOB_RECURSE FORMAT_FILES
 
 # Add custom target for flashing
 add_custom_target(flash
-    COMMAND env LD_LIBRARY_PATH=${DEBUG_DRIVERS_DIR}:${DEBUG_BIN_DIR} ${DEBUG} tilib "prog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/blink"
+    COMMAND env LD_LIBRARY_PATH=${DEBUG_DRIVERS_DIR}:${DEBUG_BIN_DIR} ${DEBUG} tilib "prog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/blink" "exit"
     DEPENDS blink
     COMMENT "Flashing the MSP430 device"
 )

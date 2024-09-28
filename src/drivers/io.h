@@ -2,6 +2,7 @@
 #define IO_H
 
 #include <stdbool.h>
+#include <stdint.h>
 // TODO: Improve multiple HW targets handling
 //#define LAUNCHPAD
 //#define SBOT

@@ -120,8 +120,31 @@ static const struct io_config io_initial_configs[IO_PORT_CNT * IO_PIN_CNT_PER_PO
 #endif
 };
 
+typedef enum
+{
+    HW_TYPE_LAUNCHPAD,
+    HW_TYPE_SBOT
+} hw_type_e;
+
+static hw_type_e io_detect_hw_type(void)
+{
+    P3SEL &= ~(BIT4);
+    P3SEL2 &= ~(BIT4);
+    P3DIR &= ~(BIT4);
+    P3REN &= ~(BIT4);
+    P3OUT &= ~(BIT4);
+    return P3IN & BIT4 ? HW_TYPE_SBOT : HW_TYPE_LAUNCHPAD;
+}
+
 void io_init(void)
 {
+#if defined(SBOT)
+    ASSERT(io_detect_hw_type() == HW_TYPE_NSUMO);
+#elif defined(LAUNCHPAD)
+    ASSERT(io_detect_hw_type() == HW_TYPE_LAUNCHPAD);
+#else
+    ASSERT(0);
+#endif
     for (io_e io = (io_e)IO_10; io < ARRAY_SIZE(io_initial_configs); io++) {
         io_configure(io, &io_initial_configs[io]);
     }

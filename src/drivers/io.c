@@ -15,7 +15,7 @@
 
 /* Enums are represented as 16-bit by default on MSP43. The enum value can be viewed as:
  * [ Zeros (11 bits) | Port (2 bits) | pin (3 bits)] */
-
+static_assert(sizeof(io_generic_e) == 1, "Unexpected size, -fshort-enums missing?");
 #define IO_PORT_OFFSET (3u) // this represents the position of where the port bits are located
 #define IO_PORT_MASK (0x3u << IO_PORT_OFFSET)
 #define IO_PIN_MASK (0x7u)

@@ -43,10 +43,10 @@ add_definitions(-D${HW})
 set(MCU msp430g2553)
 set(LINKER_SCRIPT_PATH ${TOOLS_DIR}/msp430-gcc/include/msp430g2553.ld) # Update this path
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -I${MSPGCC_INCLUDE_DIR} -D${HW} -Og -g -Wall -Wextra -Werror -Wshadow")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -I${MSPGCC_INCLUDE_DIR} -D${HW} -Og -g -Wall -Wextra -Werror -Wshadow")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} -D${HW}")
 
-#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -I${MSPGCC_INCLUDE_DIR} ${DEFINES} -Og -g -Wall -Wextra -Werror -Wshadow")
+#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -I${MSPGCC_INCLUDE_DIR} ${DEFINES} -Og -g -Wall -Wextra -Werror -Wshadow")
 #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} ${DEFINES} ")
 
 

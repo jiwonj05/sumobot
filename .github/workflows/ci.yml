@@ -8,6 +8,7 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
       - run: cmake --version
+      - run: TOOLS_PATH=/home/ubuntu/dev/tools make cppcheck HW=LAUNCHPAD
       - run: TOOLS_PATH=/home/ubuntu/dev/tools make HW=LAUNCHPAD
       - run: TOOLS_PATH=/home/ubuntu/dev/tools make HW=SBOT
-      - run: make cppcheck
+      - run: TOOLS_PATH=/home/ubuntu/dev/tools ./tools/build_tests.sh

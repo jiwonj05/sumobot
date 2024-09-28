@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.20)
 project(BlinkLED_MSP430 C)
 
 # Set toolchain root directory
@@ -32,22 +32,49 @@ else()
 endif()
 
 # Set the defines
-#set(HW $ENV{HW})
-#set(HW_DEFINE "${HW_DEFINE} -D${HW}")
-#set(DEFINES ${HW_DEFINE})
-
 set(HW $ENV{HW})
-add_definitions(-D${HW})
+set(TEST $ENV{TEST})
+
+# Check if we are building one of the custom targets
+if (CMAKE_CURRENT_SOURCE_DIR)
+    message(STATUS "Current target: ${CMAKE_CURRENT_SOURCE_DIR}")
+endif()
+
+if ("${CMAKE_COMMAND}" MATCHES "cppcheck")
+    message(STATUS "Running cppcheck...")
+endif()
+
+# Check the HW argument
+if ("${HW}" STREQUAL "LAUNCHPAD")
+	set(TARGET_HW "launchpad")
+	add_definitions(-DLAUNCHPAD)
+elseif ("${HW}" STREQUAL "SBOT")
+	set(TARGET_HW "sbot")
+	add_definitions(-DSBOT)
+elseif ("${CMAKE_COMMAND}" STREQUAL "clean" OR "${CMAKE_COMMAND}" STREQUAL "cppcheck" OR "${CMAKE_BUILD_TYPE}" STREQUAL "format")
+else()
+	message(FATAL_ERROR "Must pass HW=LAUNCHPAD or HW=SBOT")
+endif()
+ 
+if (NOT "${TEST}" STREQUAL "")
+	if (NOT "${TEST}" MATCHES "^test_.*")
+            message(FATAL_ERROR "TEST=${TEST} is invalid (test function must start with test_)")
+    else()
+	    add_definitions(-DTEST=${TEST})
+    endif()
+endif()
+
+#set(DEFINES
+#    -D${HW}
+#    -DTEST=${TEST}    
+#	)
 
 # Set the microcontroller and compilation flags
 set(MCU msp430g2553)
 set(LINKER_SCRIPT_PATH ${TOOLS_DIR}/msp430-gcc/include/msp430g2553.ld) # Update this path
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -I${MSPGCC_INCLUDE_DIR} -D${HW} -Og -g -Wall -Wextra -Werror -Wshadow")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} -D${HW}")
-
-#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -I${MSPGCC_INCLUDE_DIR} ${DEFINES} -Og -g -Wall -Wextra -Werror -Wshadow")
-#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} ${DEFINES} ")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -I${MSPGCC_INCLUDE_DIR} -D${HW} -DTEST=${TEST} -Og -g -Wall -Wextra -Werror -Wshadow")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} -D${HW} -DTEST=${TEST}")
 
 
 # Set source directory
@@ -75,12 +102,31 @@ set(SOURCES_HEADER
 
    )
 
-
-# Add source files
-set(SOURCES
-    ${SOURCES_HEADER}
-    src/main.c
+if ("${TEST}" STREQUAL "") # Equivalent of ifndef TEST
+    set(SOURCES
+        src/drivers/io.c
+        src/drivers/mcu_init.c
+        src/drivers/led.c
+        src/common/assert_handler.c
+        src/main.c
+        ${SOURCES_HEADERS}
     )
+else()
+    set(SOURCES
+        src/drivers/io.c
+        src/drivers/mcu_init.c
+        src/drivers/led.c
+        src/common/assert_handler.c
+        src/test/test.c
+        ${SOURCES_HEADERS}
+    )
+
+    # Define the name of the object file for the test
+    set(TEST_OBJECT_FILE "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/blink.dir/src/test/test.c.o")
+
+endif()
+
+message(STATUS "Source Files: ${SOURCES}")
 
 # Specify output directories
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)

@@ -11,7 +11,7 @@ set(MSPGCC_INCLUDE_DIR ${MSPGCC_ROOT_DIR}/include)
 set(CMAKE_C_COMPILER ${MSPGCC_BIN_DIR}/msp430-elf-gcc)
 
 #Ignore warnings
-add_compile_options(-w)
+#add_compile_options(-w)
 
 # Set CPPCHECK
 find_program(CPPCHECK cppcheck)
@@ -43,10 +43,10 @@ add_definitions(-D${HW})
 set(MCU msp430g2553)
 set(LINKER_SCRIPT_PATH ${TOOLS_DIR}/msp430-gcc/include/msp430g2553.ld) # Update this path
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -I${MSPGCC_INCLUDE_DIR} -D${HW} -Og -g -Wall -Wextra -Werror -Wshadow")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -I${MSPGCC_INCLUDE_DIR} -D${HW} -Og -g -Wall -Wextra -Werror -Wshadow")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} -D${HW}")
 
-#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -I${MSPGCC_INCLUDE_DIR} ${DEFINES} -Og -g -Wall -Wextra -Werror -Wshadow")
+#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -I${MSPGCC_INCLUDE_DIR} ${DEFINES} -Og -g -Wall -Wextra -Werror -Wshadow")
 #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} ${DEFINES} ")
 
 
@@ -68,6 +68,9 @@ include_directories(${HEADER_DIR})
 # Source Files with headers
 set(SOURCES_HEADER
     src/drivers/io.c
+    src/drivers/mcu_init.c
+    src/drivers/led.c
+    src/common/assert_handler.c
     # external/printf/printf.c
 
    )
@@ -115,7 +118,7 @@ file(GLOB_RECURSE FORMAT_FILES
 
 # Add custom target for flashing
 add_custom_target(flash
-    COMMAND env LD_LIBRARY_PATH=${DEBUG_DRIVERS_DIR}:${DEBUG_BIN_DIR} ${DEBUG} tilib "prog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/blink"
+    COMMAND env LD_LIBRARY_PATH=${DEBUG_DRIVERS_DIR}:${DEBUG_BIN_DIR} ${DEBUG} tilib "prog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/blink" "exit"
     DEPENDS blink
     COMMENT "Flashing the MSP430 device"
 )

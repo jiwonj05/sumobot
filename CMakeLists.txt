@@ -51,9 +51,7 @@ if ("${HW}" STREQUAL "LAUNCHPAD")
 elseif ("${HW}" STREQUAL "SBOT")
 	set(TARGET_HW "sbot")
 	add_definitions(-DSBOT)
-elseif ("${CMAKE_COMMAND}" STREQUAL "clean" OR "${CMAKE_COMMAND}" STREQUAL "cppcheck" OR "${CMAKE_BUILD_TYPE}" STREQUAL "format")
-else()
-	message(FATAL_ERROR "Must pass HW=LAUNCHPAD or HW=SBOT")
+else() 
 endif()
  
 if (NOT "${TEST}" STREQUAL "")
@@ -125,8 +123,6 @@ else()
     set(TEST_OBJECT_FILE "${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/blink.dir/src/test/test.c.o")
 
 endif()
-
-message(STATUS "Source Files: ${SOURCES}")
 
 # Specify output directories
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)

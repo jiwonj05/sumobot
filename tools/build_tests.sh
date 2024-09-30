@@ -7,4 +7,6 @@ for test_function in $TEST_FUNCTIONS
 do
     make HW=LAUNCHPAD TEST=$test_function
     make HW=NSUMO TEST=$test_function
+    cd /home/jiwon/sumobot/tools
+    ./cleanup.sh
 done

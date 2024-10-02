@@ -117,17 +117,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named blink
+# Target rules for targets named launchpad
 
 # Build rule for target.
-blink: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 blink
-.PHONY : blink
+launchpad: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 launchpad
+.PHONY : launchpad
 
 # fast build rule for target.
-blink/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/build
-.PHONY : blink/fast
+launchpad/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/build
+.PHONY : launchpad/fast
 
 #=============================================================================
 # Target rules for targets named flash
@@ -169,6 +169,32 @@ cppcheck/fast:
 .PHONY : cppcheck/fast
 
 #=============================================================================
+# Target rules for targets named size
+
+# Build rule for target.
+size: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 size
+.PHONY : size
+
+# fast build rule for target.
+size/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/size.dir/build.make CMakeFiles/size.dir/build
+.PHONY : size/fast
+
+#=============================================================================
+# Target rules for targets named symbols
+
+# Build rule for target.
+symbols: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 symbols
+.PHONY : symbols
+
+# fast build rule for target.
+symbols/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/symbols.dir/build.make CMakeFiles/symbols.dir/build
+.PHONY : symbols/fast
+
+#=============================================================================
 # Target rules for targets named format
 
 # Build rule for target.
@@ -186,7 +212,7 @@ src/common/assert_handler.o: src/common/assert_handler.c.o
 
 # target to build an object file
 src/common/assert_handler.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/common/assert_handler.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/common/assert_handler.c.o
 .PHONY : src/common/assert_handler.c.o
 
 src/common/assert_handler.i: src/common/assert_handler.c.i
@@ -194,7 +220,7 @@ src/common/assert_handler.i: src/common/assert_handler.c.i
 
 # target to preprocess a source file
 src/common/assert_handler.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/common/assert_handler.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/common/assert_handler.c.i
 .PHONY : src/common/assert_handler.c.i
 
 src/common/assert_handler.s: src/common/assert_handler.c.s
@@ -202,7 +228,7 @@ src/common/assert_handler.s: src/common/assert_handler.c.s
 
 # target to generate assembly for a file
 src/common/assert_handler.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/common/assert_handler.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/common/assert_handler.c.s
 .PHONY : src/common/assert_handler.c.s
 
 src/drivers/io.o: src/drivers/io.c.o
@@ -210,7 +236,7 @@ src/drivers/io.o: src/drivers/io.c.o
 
 # target to build an object file
 src/drivers/io.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/io.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/io.c.o
 .PHONY : src/drivers/io.c.o
 
 src/drivers/io.i: src/drivers/io.c.i
@@ -218,7 +244,7 @@ src/drivers/io.i: src/drivers/io.c.i
 
 # target to preprocess a source file
 src/drivers/io.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/io.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/io.c.i
 .PHONY : src/drivers/io.c.i
 
 src/drivers/io.s: src/drivers/io.c.s
@@ -226,7 +252,7 @@ src/drivers/io.s: src/drivers/io.c.s
 
 # target to generate assembly for a file
 src/drivers/io.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/io.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/io.c.s
 .PHONY : src/drivers/io.c.s
 
 src/drivers/led.o: src/drivers/led.c.o
@@ -234,7 +260,7 @@ src/drivers/led.o: src/drivers/led.c.o
 
 # target to build an object file
 src/drivers/led.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/led.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/led.c.o
 .PHONY : src/drivers/led.c.o
 
 src/drivers/led.i: src/drivers/led.c.i
@@ -242,7 +268,7 @@ src/drivers/led.i: src/drivers/led.c.i
 
 # target to preprocess a source file
 src/drivers/led.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/led.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/led.c.i
 .PHONY : src/drivers/led.c.i
 
 src/drivers/led.s: src/drivers/led.c.s
@@ -250,7 +276,7 @@ src/drivers/led.s: src/drivers/led.c.s
 
 # target to generate assembly for a file
 src/drivers/led.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/led.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/led.c.s
 .PHONY : src/drivers/led.c.s
 
 src/drivers/mcu_init.o: src/drivers/mcu_init.c.o
@@ -258,7 +284,7 @@ src/drivers/mcu_init.o: src/drivers/mcu_init.c.o
 
 # target to build an object file
 src/drivers/mcu_init.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/mcu_init.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/mcu_init.c.o
 .PHONY : src/drivers/mcu_init.c.o
 
 src/drivers/mcu_init.i: src/drivers/mcu_init.c.i
@@ -266,7 +292,7 @@ src/drivers/mcu_init.i: src/drivers/mcu_init.c.i
 
 # target to preprocess a source file
 src/drivers/mcu_init.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/mcu_init.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/mcu_init.c.i
 .PHONY : src/drivers/mcu_init.c.i
 
 src/drivers/mcu_init.s: src/drivers/mcu_init.c.s
@@ -274,7 +300,7 @@ src/drivers/mcu_init.s: src/drivers/mcu_init.c.s
 
 # target to generate assembly for a file
 src/drivers/mcu_init.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/drivers/mcu_init.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/mcu_init.c.s
 .PHONY : src/drivers/mcu_init.c.s
 
 src/main.o: src/main.c.o
@@ -282,7 +308,7 @@ src/main.o: src/main.c.o
 
 # target to build an object file
 src/main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/main.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/main.c.o
 .PHONY : src/main.c.o
 
 src/main.i: src/main.c.i
@@ -290,7 +316,7 @@ src/main.i: src/main.c.i
 
 # target to preprocess a source file
 src/main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/main.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/main.c.i
 .PHONY : src/main.c.i
 
 src/main.s: src/main.c.s
@@ -298,7 +324,7 @@ src/main.s: src/main.c.s
 
 # target to generate assembly for a file
 src/main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blink.dir/build.make CMakeFiles/blink.dir/src/main.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/main.c.s
 .PHONY : src/main.c.s
 
 # Help Target
@@ -313,7 +339,9 @@ help:
 	@echo "... distclean"
 	@echo "... flash"
 	@echo "... format"
-	@echo "... blink"
+	@echo "... size"
+	@echo "... symbols"
+	@echo "... launchpad"
 	@echo "... src/common/assert_handler.o"
 	@echo "... src/common/assert_handler.i"
 	@echo "... src/common/assert_handler.s"

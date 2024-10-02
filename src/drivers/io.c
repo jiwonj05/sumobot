@@ -25,7 +25,7 @@ static uint8_t io_port(io_e io)
     return (io & IO_PORT_MASK) >> IO_PORT_OFFSET;
 }
 
-static inline uint8_t io_pin_idx(io_e io)
+static uint8_t io_pin_idx(io_e io)
 {
     return io & IO_PIN_MASK;
 }
@@ -139,7 +139,7 @@ static hw_type_e io_detect_hw_type(void)
 void io_init(void)
 {
 #if defined(SBOT)
-    ASSERT(io_detect_hw_type() == HW_TYPE_NSUMO);
+    ASSERT(io_detect_hw_type() == HW_TYPE_SBOT);
 #elif defined(LAUNCHPAD)
     ASSERT(io_detect_hw_type() == HW_TYPE_LAUNCHPAD);
 #else

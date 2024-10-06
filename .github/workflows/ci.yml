@@ -11,4 +11,4 @@ jobs:
       - run: TOOLS_PATH=/home/ubuntu/dev/tools make HW=LAUNCHPAD
       - run: TOOLS_PATH=/home/ubuntu/dev/tools make HW=SBOT
       - run: TOOLS_PATH=/home/ubuntu/dev/tools ./tools/build_tests.sh
-      - run: make cppcheck
+      - run: make cppcheck HW=LAUNCHPAD

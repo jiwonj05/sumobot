@@ -31,6 +31,29 @@ else()
         message(WARNING "clang format not found")
 endif()
 
+# Set MSP430 Size Program
+find_program(SIZE msp430-elf-size HINTS ${MSPGCC_BIN_DIR})
+
+
+if(SIZE)
+	message(STATUS "Size Program found: ${SIZE}")
+else()
+	message(WARNING "Size Program not found")
+endif()
+
+# Set MSP430 Size Program #2
+find_program(READELF msp430-elf-readelf HINTS ${MSPGCC_BIN_DIR})
+
+if(READELF)
+	message(STATUS "READELF Program found: ${READELF}")
+else()
+	message(WARNING "READELF Program not found")
+endif()
+
+
+# Create the output directory for the executable
+file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${TARGET_HW}")
+
 # Set the defines
 set(HW $ENV{HW})
 set(TEST $ENV{TEST})
@@ -52,13 +75,17 @@ elseif ("${HW}" STREQUAL "SBOT")
 	set(TARGET_HW "sbot")
 	add_definitions(-DSBOT)
 else() 
+	message(WARNING "HW argument not called") 
 endif()
- 
+
+set(TARGET_NAME ${TARGET_HW})
+
 if (NOT "${TEST}" STREQUAL "")
 	if (NOT "${TEST}" MATCHES "^test_.*")
             message(FATAL_ERROR "TEST=${TEST} is invalid (test function must start with test_)")
     else()
 	    add_definitions(-DTEST=${TEST})
+	    set(TARGET_NAME ${TEST})
     endif()
 endif()
 
@@ -71,8 +98,8 @@ endif()
 set(MCU msp430g2553)
 set(LINKER_SCRIPT_PATH ${TOOLS_DIR}/msp430-gcc/include/msp430g2553.ld) # Update this path
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -I${MSPGCC_INCLUDE_DIR} -D${HW} -DTEST=${TEST} -Og -g -Wall -Wextra -Werror -Wshadow")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} -D${HW} -DTEST=${TEST}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -I${MSPGCC_INCLUDE_DIR} -D${HW} -DTEST=${TEST} -Og -g -Wall -Wextra -Werror -Wshadow -Os")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} -D${HW} -DTEST=${TEST} --data-sections")
 
 
 # Set source directory
@@ -125,12 +152,12 @@ else()
 endif()
 
 # Specify output directories
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/${TARGET_HW})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 # Define the executable target
-add_executable(blink ${SOURCES})
+add_executable(${TARGET_NAME} ${SOURCES})
 
 # Set Debug tool paths
 set(TI_CCS_DIR ${TOOLS_DIR}ccs1280/ccs)
@@ -160,8 +187,8 @@ file(GLOB_RECURSE FORMAT_FILES
 
 # Add custom target for flashing
 add_custom_target(flash
-    COMMAND env LD_LIBRARY_PATH=${DEBUG_DRIVERS_DIR}:${DEBUG_BIN_DIR} ${DEBUG} tilib "prog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/blink" "exit"
-    DEPENDS blink
+	COMMAND env LD_LIBRARY_PATH=${DEBUG_DRIVERS_DIR}:${DEBUG_BIN_DIR} ${DEBUG} tilib "prog ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${TARGET_NAME}" "exit"
+	DEPENDS ${TARGET_NAME}
     COMMENT "Flashing the MSP430 device"
 )
 
@@ -185,14 +212,34 @@ add_custom_target(distclean
 		--suppress=unusedFunction
 		--suppress=unusedVariable
 		--suppress=missingInclude
+		--suppress=unknownMacro
 		-i${CMAKE_SOURCE_DIR}/external/printf
 		-i${CMAKE_SOURCE_DIR}/CMakeFiles
 		-i${CMAKE_SOURCE_DIR}/CMakeFiles/3.22.1/CompilerIdC
 		-I${CPPCHECK_INCLUDES}
+		DEPENDS ${SOURCES}
 		COMMENT "Running cppcheck"
 
 	)
 #endif()
+
+# Add custom target for checking flash size
+
+add_custom_target(size
+	COMMAND env LD_LIBRARY_PATH=${DEBUG_DRIVERS_DIR}:${DEBUG_BIN_DIR} ${SIZE} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${TARGET_NAME}
+	DEPENDS ${TARGET_NAME}
+    COMMENT "Checking flash size"
+    VERBATIM
+)
+
+# Define the custom target for listing symbols
+add_custom_target(symbols
+    COMMAND ${CMAKE_COMMAND} -E echo "Listing symbols for ${TARGET_NAME}"
+    COMMAND ${CMAKE_COMMAND} -E env LD_LIBRARY_PATH=${DEBUG_DRIVERS_DIR}:${DEBUG_BIN_DIR} ${READELF} -s ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${TARGET_NAME} | sort -n -k3
+    DEPENDS ${TARGET_NAME}
+    COMMENT "Generating sorted symbol list for ${TARGET_NAME}"
+    VERBATIM
+)
 
 # Add custom target for clang format
 

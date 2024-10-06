@@ -212,6 +212,7 @@ add_custom_target(distclean
 		--suppress=unusedFunction
 		--suppress=unusedVariable
 		--suppress=missingInclude
+		--suppress=unknownMacro
 		-i${CMAKE_SOURCE_DIR}/external/printf
 		-i${CMAKE_SOURCE_DIR}/CMakeFiles
 		-i${CMAKE_SOURCE_DIR}/CMakeFiles/3.22.1/CompilerIdC

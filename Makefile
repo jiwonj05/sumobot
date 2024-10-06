@@ -117,17 +117,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named test_io_interrupt
+# Target rules for targets named launchpad
 
 # Build rule for target.
-test_io_interrupt: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_io_interrupt
-.PHONY : test_io_interrupt
+launchpad: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 launchpad
+.PHONY : launchpad
 
 # fast build rule for target.
-test_io_interrupt/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/build
-.PHONY : test_io_interrupt/fast
+launchpad/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/build
+.PHONY : launchpad/fast
 
 #=============================================================================
 # Target rules for targets named flash
@@ -212,7 +212,7 @@ src/common/assert_handler.o: src/common/assert_handler.c.o
 
 # target to build an object file
 src/common/assert_handler.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/common/assert_handler.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/common/assert_handler.c.o
 .PHONY : src/common/assert_handler.c.o
 
 src/common/assert_handler.i: src/common/assert_handler.c.i
@@ -220,7 +220,7 @@ src/common/assert_handler.i: src/common/assert_handler.c.i
 
 # target to preprocess a source file
 src/common/assert_handler.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/common/assert_handler.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/common/assert_handler.c.i
 .PHONY : src/common/assert_handler.c.i
 
 src/common/assert_handler.s: src/common/assert_handler.c.s
@@ -228,7 +228,7 @@ src/common/assert_handler.s: src/common/assert_handler.c.s
 
 # target to generate assembly for a file
 src/common/assert_handler.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/common/assert_handler.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/common/assert_handler.c.s
 .PHONY : src/common/assert_handler.c.s
 
 src/drivers/io.o: src/drivers/io.c.o
@@ -236,7 +236,7 @@ src/drivers/io.o: src/drivers/io.c.o
 
 # target to build an object file
 src/drivers/io.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/drivers/io.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/io.c.o
 .PHONY : src/drivers/io.c.o
 
 src/drivers/io.i: src/drivers/io.c.i
@@ -244,7 +244,7 @@ src/drivers/io.i: src/drivers/io.c.i
 
 # target to preprocess a source file
 src/drivers/io.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/drivers/io.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/io.c.i
 .PHONY : src/drivers/io.c.i
 
 src/drivers/io.s: src/drivers/io.c.s
@@ -252,7 +252,7 @@ src/drivers/io.s: src/drivers/io.c.s
 
 # target to generate assembly for a file
 src/drivers/io.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/drivers/io.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/io.c.s
 .PHONY : src/drivers/io.c.s
 
 src/drivers/led.o: src/drivers/led.c.o
@@ -260,7 +260,7 @@ src/drivers/led.o: src/drivers/led.c.o
 
 # target to build an object file
 src/drivers/led.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/drivers/led.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/led.c.o
 .PHONY : src/drivers/led.c.o
 
 src/drivers/led.i: src/drivers/led.c.i
@@ -268,7 +268,7 @@ src/drivers/led.i: src/drivers/led.c.i
 
 # target to preprocess a source file
 src/drivers/led.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/drivers/led.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/led.c.i
 .PHONY : src/drivers/led.c.i
 
 src/drivers/led.s: src/drivers/led.c.s
@@ -276,7 +276,7 @@ src/drivers/led.s: src/drivers/led.c.s
 
 # target to generate assembly for a file
 src/drivers/led.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/drivers/led.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/led.c.s
 .PHONY : src/drivers/led.c.s
 
 src/drivers/mcu_init.o: src/drivers/mcu_init.c.o
@@ -284,7 +284,7 @@ src/drivers/mcu_init.o: src/drivers/mcu_init.c.o
 
 # target to build an object file
 src/drivers/mcu_init.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/drivers/mcu_init.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/mcu_init.c.o
 .PHONY : src/drivers/mcu_init.c.o
 
 src/drivers/mcu_init.i: src/drivers/mcu_init.c.i
@@ -292,7 +292,7 @@ src/drivers/mcu_init.i: src/drivers/mcu_init.c.i
 
 # target to preprocess a source file
 src/drivers/mcu_init.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/drivers/mcu_init.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/mcu_init.c.i
 .PHONY : src/drivers/mcu_init.c.i
 
 src/drivers/mcu_init.s: src/drivers/mcu_init.c.s
@@ -300,32 +300,32 @@ src/drivers/mcu_init.s: src/drivers/mcu_init.c.s
 
 # target to generate assembly for a file
 src/drivers/mcu_init.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/drivers/mcu_init.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/drivers/mcu_init.c.s
 .PHONY : src/drivers/mcu_init.c.s
 
-src/test/test.o: src/test/test.c.o
-.PHONY : src/test/test.o
+src/main.o: src/main.c.o
+.PHONY : src/main.o
 
 # target to build an object file
-src/test/test.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/test/test.c.o
-.PHONY : src/test/test.c.o
+src/main.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/main.c.o
+.PHONY : src/main.c.o
 
-src/test/test.i: src/test/test.c.i
-.PHONY : src/test/test.i
+src/main.i: src/main.c.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-src/test/test.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/test/test.c.i
-.PHONY : src/test/test.c.i
+src/main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/main.c.i
+.PHONY : src/main.c.i
 
-src/test/test.s: src/test/test.c.s
-.PHONY : src/test/test.s
+src/main.s: src/main.c.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-src/test/test.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_io_interrupt.dir/build.make CMakeFiles/test_io_interrupt.dir/src/test/test.c.s
-.PHONY : src/test/test.c.s
+src/main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchpad.dir/build.make CMakeFiles/launchpad.dir/src/main.c.s
+.PHONY : src/main.c.s
 
 # Help Target
 help:
@@ -341,7 +341,7 @@ help:
 	@echo "... format"
 	@echo "... size"
 	@echo "... symbols"
-	@echo "... test_io_interrupt"
+	@echo "... launchpad"
 	@echo "... src/common/assert_handler.o"
 	@echo "... src/common/assert_handler.i"
 	@echo "... src/common/assert_handler.s"
@@ -354,9 +354,9 @@ help:
 	@echo "... src/drivers/mcu_init.o"
 	@echo "... src/drivers/mcu_init.i"
 	@echo "... src/drivers/mcu_init.s"
-	@echo "... src/test/test.o"
-	@echo "... src/test/test.i"
-	@echo "... src/test/test.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 

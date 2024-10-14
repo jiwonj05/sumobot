@@ -1,5 +1,6 @@
 #include "uart.h"
 #include "ring_buffer.h"
+#include "defines.h"
 #include "assert_handler.h"
 #include <msp430.h>
 #include <assert.h>
@@ -47,17 +48,14 @@ static void uart_tx_start(void)
     }
 }
 
-__attribute__((interrupt(USCIAB0TX_VECTOR))) void isr_uart_tx()
+INTERRUPT_FUNCTION(USCIAB0TX_VECTOR) isr_uart_tx()
 {
-    if (ring_buffer_empty(&tx_buffer)) {
-        // TODO: Assert
-        while (1)
-            ;
-    }
+    ASSERT_INTERRUPT(!ring_buffer_empty(&tx_buffer));
 
     // Remove the transmitted data byte from the buffer
     ring_buffer_get(&tx_buffer);
 
+    // Clear interrupt here to avoid accidently clearing interrupt for next transmission
     uart_tx_clear_interrupt();
 
     if (!ring_buffer_empty(&tx_buffer)) {
@@ -111,7 +109,8 @@ void uart_putchar_polling(char c)
     }
 }
 
-void uart_putchar_interrupt(char c)
+// mpaland/printf needs this to be named _putchar
+void _putchar(char c)
 {
     // Poll if full
     while (ring_buffer_full(&tx_buffer)) { };
@@ -126,15 +125,6 @@ void uart_putchar_interrupt(char c)
 
     // Some terminals expect carriage return (\r) after line-feedd (\n) for proper new line
     if (c == '\n') {
-        uart_putchar_interrupt('\r');
-    }
-}
-
-void uart_print_interrupt(const char *string)
-{
-    int i = 0;
-    while (string[i] != '\0') {
-        uart_putchar_interrupt(string[i]);
-        i++;
+        _putchar('\r');
     }
 }

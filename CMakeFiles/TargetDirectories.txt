@@ -1,0 +1,9 @@
+/home/jiwon/sumobot/CMakeFiles/test_trace.dir
+/home/jiwon/sumobot/CMakeFiles/flash.dir
+/home/jiwon/sumobot/CMakeFiles/distclean.dir
+/home/jiwon/sumobot/CMakeFiles/cppcheck.dir
+/home/jiwon/sumobot/CMakeFiles/size.dir
+/home/jiwon/sumobot/CMakeFiles/symbols.dir
+/home/jiwon/sumobot/CMakeFiles/format.dir
+/home/jiwon/sumobot/CMakeFiles/edit_cache.dir
+/home/jiwon/sumobot/CMakeFiles/rebuild_cache.dir

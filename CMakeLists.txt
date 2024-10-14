@@ -10,9 +10,6 @@ set(MSPGCC_INCLUDE_DIR ${MSPGCC_ROOT_DIR}/include)
 # Set compiler
 set(CMAKE_C_COMPILER ${MSPGCC_BIN_DIR}/msp430-elf-gcc)
 
-#Ignore warnings
-#add_compile_options(-w)
-
 # Set CPPCHECK
 find_program(CPPCHECK cppcheck)
 
@@ -50,6 +47,14 @@ else()
 	message(WARNING "READELF Program not found")
 endif()
 
+# Set MSP430 ADDR2LINE program
+find_program(ADDR2LINE msp430-elf-addr2line HINTS ${MSPGCC_BIN_DIR})
+
+if(ADDR2LINE)
+	message(STATUS "ADDR2LINE Program found: ${ADDR2LINE}")
+else()
+	message(WARNING "ADDR2LINE Program not found")
+endif()
 
 # Create the output directory for the executable
 file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${TARGET_HW}")
@@ -57,6 +62,7 @@ file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${TARGET_HW}")
 # Set the defines
 set(HW $ENV{HW})
 set(TEST $ENV{TEST})
+set(ADDR $ENV{ADDR})
 
 # Check if we are building one of the custom targets
 if (CMAKE_CURRENT_SOURCE_DIR)
@@ -89,17 +95,24 @@ if (NOT "${TEST}" STREQUAL "")
     endif()
 endif()
 
-#set(DEFINES
-#    -D${HW}
-#    -DTEST=${TEST}    
-#	)
-
-# Set the microcontroller and compilation flags
 set(MCU msp430g2553)
 set(LINKER_SCRIPT_PATH ${TOOLS_DIR}/msp430-gcc/include/msp430g2553.ld) # Update this path
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -I${MSPGCC_INCLUDE_DIR} -D${HW} -DTEST=${TEST} -Og -g -Wall -Wextra -Werror -Wshadow -Os")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} -D${HW} -DTEST=${TEST} --data-sections")
+set(INCLUDE_DIRS
+    ${MSPGCC_INCLUDE_DIR}
+    ${CMAKE_SOURCE_DIR}/external     
+    ${CMAKE_SOURCE_DIR}/external/printf
+)
+
+set(DEFINES
+    ${HW}
+    PRINTF_INCLUDE_CONFIG_H
+    TEST=${TEST}
+)
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -Og -g -Wall -Wextra -Werror -Wshadow -Os")
+
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} --data-sections")
 
 
 # Set source directory
@@ -112,6 +125,8 @@ set(HEADER_DIR
     ${SOURCE_DIR}/common
     ${SOURCE_DIR}/app
     ${SOURCE_DIR}/test
+    ${SOURCE_DIR}/external/printf
+    ${SOURCE_DIR}/external
     )
 
 # Include directories for header files
@@ -123,7 +138,7 @@ set(SOURCES_HEADER
     src/drivers/mcu_init.c
     src/drivers/led.c
     src/common/assert_handler.c
-    # external/printf/printf.c
+    external/printf/printf.c
 
    )
 
@@ -132,18 +147,25 @@ if ("${TEST}" STREQUAL "") # Equivalent of ifndef TEST
         src/drivers/io.c
         src/drivers/mcu_init.c
         src/drivers/led.c
+	src/drivers/uart.c
         src/common/assert_handler.c
+	src/common/ring_buffer.c
+	src/common/trace.c
+	external/printf/printf.c
         src/main.c
-        ${SOURCES_HEADERS}
     )
 else()
     set(SOURCES
         src/drivers/io.c
         src/drivers/mcu_init.c
         src/drivers/led.c
+	src/drivers/uart.c
         src/common/assert_handler.c
-        src/test/test.c
-        ${SOURCES_HEADERS}
+	src/common/ring_buffer.c
+	src/common/trace.c
+        external/printf/printf.c
+	src/test/test.c
+        
     )
 
     # Define the name of the object file for the test
@@ -159,16 +181,17 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 # Define the executable target
 add_executable(${TARGET_NAME} ${SOURCES})
 
+target_include_directories(${TARGET_NAME} PRIVATE ${INCLUDE_DIRS})
+
+#target_compile_definitions(${TARGET_NAME} PRIVATE PRINTF_INCLUDE_CONFIG_H)
+target_compile_definitions(${TARGET_NAME} PRIVATE ${DEFINES})
+
+
 # Set Debug tool paths
 set(TI_CCS_DIR ${TOOLS_DIR}ccs1280/ccs)
 set(DEBUG_BIN_DIR ${TI_CCS_DIR}/ccs_base/DebugServer/bin)
 set(DEBUG_DRIVERS_DIR ${TI_CCS_DIR}/ccs_base/DebugServer/drivers)
 set(DEBUG LD_LIBRARY_PATH=${DEBUG_DRIVERS_DIR} ${DEBUG_BIN_DIR}/mspdebug)
-
-#set(HEADERS
-#    ${CMAKE_SOURCE_DIR}/include/main.h
-#    ${CMAKE_SOURCE_DIR}/external/printf/printf.h
-#)
 
 # This ensures the printf include is treated as a system include
 #target_include_directories(blink SYSTEM PUBLIC ${CMAKE_SOURCE_DIR}/external/printf)
@@ -230,6 +253,14 @@ add_custom_target(size
 	DEPENDS ${TARGET_NAME}
     COMMENT "Checking flash size"
     VERBATIM
+)
+
+
+# Add a custom target to call addr2line
+add_custom_target(addr2line
+	COMMAND ${ADDR2LINE} -e ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${TARGET_NAME} ${ADDR}
+	DEPENDS ${TARGET_NAME}
+	COMMENT "Running addr2line on ${TARGET_NAME} with address ${ADDR}"
 )
 
 # Define the custom target for listing symbols

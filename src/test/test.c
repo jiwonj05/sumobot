@@ -4,6 +4,10 @@
 #include "mcu_init.h"
 #include "assert_handler.h"
 #include "defines.h"
+#include "uart.h"
+#include "ring_buffer.h"
+#include "printf.h"
+#include "trace.h"
 
 SUPPRESS_UNUSED
 static void test_setup(void)
@@ -132,6 +136,32 @@ static void test_io_interrupt(void)
     io_enable_interrupt(IO_20);
     while (1)
         ;
+}
+
+SUPPRESS_UNUSED
+static void test_uart(void)
+{
+    test_setup();
+    uart_init();
+    while (1) {
+        _putchar('T');
+        _putchar('E');
+        _putchar('S');
+        _putchar('T');
+        _putchar('\n');
+        BUSY_WAIT_ms(100);
+    }
+}
+
+SUPPRESS_UNUSED
+static void test_trace(void)
+{
+    test_setup();
+    trace_init();
+    while (1) {
+        TRACE("Today is %d\n", 2024);
+        BUSY_WAIT_ms(1000);
+    }
 }
 
 int main(void)

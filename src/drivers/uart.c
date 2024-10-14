@@ -2,6 +2,7 @@
 #include "ring_buffer.h"
 #include "defines.h"
 #include "assert_handler.h"
+#include "printf.h"
 #include <msp430.h>
 #include <assert.h>
 #include <stdint.h>
@@ -63,11 +64,8 @@ INTERRUPT_FUNCTION(USCIAB0TX_VECTOR) isr_uart_tx()
     }
 }
 
-static bool initialized = false;
-void uart_init(void)
+static void uart_configure(void)
 {
-    ASSERT(!initialized);
-
     /* Reset module. It stays in reset until cleared. The module should be in reset
      * condition while configured according to the user guide (SLAU144K). */
     UCA0CTL1 &= UCSWRST;
@@ -89,24 +87,20 @@ void uart_init(void)
 
     // Clear reset to release the module for operation.
     UCA0CTL1 &= ~UCSWRST;
+}
+
+static bool initialized = false;
+void uart_init(void)
+{
+    ASSERT(!initialized);
+
+    uart_configure();
 
     uart_tx_clear_interrupt();
 
     uart_tx_enable_interrupt();
 
     initialized = true;
-}
-
-void uart_putchar_polling(char c)
-{
-    // Wait for any ongoing transmittion to finish
-    while (!(IFG2 & UCA0TXIFG)) { }
-    UCA0TXBUF = c;
-
-    // Some terminals expect carriage return (\r) after line-feedd (\n) for proper new line
-    if (c == '\n') {
-        uart_putchar_polling('\r');
-    }
 }
 
 // mpaland/printf needs this to be named _putchar
@@ -126,5 +120,34 @@ void _putchar(char c)
     // Some terminals expect carriage return (\r) after line-feedd (\n) for proper new line
     if (c == '\n') {
         _putchar('\r');
+    }
+}
+
+void uart_init_assert(void)
+{
+    uart_tx_disable_interrupt();
+    uart_configure();
+}
+
+static void uart_putchar_polling(char c)
+{
+    // Wait for any ongoing transmittion to finish
+    while (!(IFG2 & UCA0TXIFG)) { }
+    UCA0TXBUF = c;
+
+    // Some terminals expect carriage return (\r) after line-feedd (\n) for proper new line
+    if (c == '\n') {
+	while (!(IFG2 & UCA0TXIFG)) { }
+        uart_putchar_polling('\r');
+    }
+
+}
+
+void uart_trace_assert(const char *string)
+{
+    int i = 0;
+    while(string[i] != '\0') {
+        uart_putchar_polling(string[i]);
+	i++;
     }
 }

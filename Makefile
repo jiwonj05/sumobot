@@ -117,17 +117,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named test_trace
+# Target rules for targets named test_assert
 
 # Build rule for target.
-test_trace: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_trace
-.PHONY : test_trace
+test_assert: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_assert
+.PHONY : test_assert
 
 # fast build rule for target.
-test_trace/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/build
-.PHONY : test_trace/fast
+test_assert/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/build
+.PHONY : test_assert/fast
 
 #=============================================================================
 # Target rules for targets named flash
@@ -182,6 +182,19 @@ size/fast:
 .PHONY : size/fast
 
 #=============================================================================
+# Target rules for targets named addr2line
+
+# Build rule for target.
+addr2line: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 addr2line
+.PHONY : addr2line
+
+# fast build rule for target.
+addr2line/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/addr2line.dir/build.make CMakeFiles/addr2line.dir/build
+.PHONY : addr2line/fast
+
+#=============================================================================
 # Target rules for targets named symbols
 
 # Build rule for target.
@@ -212,7 +225,7 @@ external/printf/printf.o: external/printf/printf.c.o
 
 # target to build an object file
 external/printf/printf.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/external/printf/printf.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/external/printf/printf.c.o
 .PHONY : external/printf/printf.c.o
 
 external/printf/printf.i: external/printf/printf.c.i
@@ -220,7 +233,7 @@ external/printf/printf.i: external/printf/printf.c.i
 
 # target to preprocess a source file
 external/printf/printf.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/external/printf/printf.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/external/printf/printf.c.i
 .PHONY : external/printf/printf.c.i
 
 external/printf/printf.s: external/printf/printf.c.s
@@ -228,7 +241,7 @@ external/printf/printf.s: external/printf/printf.c.s
 
 # target to generate assembly for a file
 external/printf/printf.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/external/printf/printf.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/external/printf/printf.c.s
 .PHONY : external/printf/printf.c.s
 
 src/common/assert_handler.o: src/common/assert_handler.c.o
@@ -236,7 +249,7 @@ src/common/assert_handler.o: src/common/assert_handler.c.o
 
 # target to build an object file
 src/common/assert_handler.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/common/assert_handler.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/common/assert_handler.c.o
 .PHONY : src/common/assert_handler.c.o
 
 src/common/assert_handler.i: src/common/assert_handler.c.i
@@ -244,7 +257,7 @@ src/common/assert_handler.i: src/common/assert_handler.c.i
 
 # target to preprocess a source file
 src/common/assert_handler.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/common/assert_handler.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/common/assert_handler.c.i
 .PHONY : src/common/assert_handler.c.i
 
 src/common/assert_handler.s: src/common/assert_handler.c.s
@@ -252,7 +265,7 @@ src/common/assert_handler.s: src/common/assert_handler.c.s
 
 # target to generate assembly for a file
 src/common/assert_handler.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/common/assert_handler.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/common/assert_handler.c.s
 .PHONY : src/common/assert_handler.c.s
 
 src/common/ring_buffer.o: src/common/ring_buffer.c.o
@@ -260,7 +273,7 @@ src/common/ring_buffer.o: src/common/ring_buffer.c.o
 
 # target to build an object file
 src/common/ring_buffer.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/common/ring_buffer.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/common/ring_buffer.c.o
 .PHONY : src/common/ring_buffer.c.o
 
 src/common/ring_buffer.i: src/common/ring_buffer.c.i
@@ -268,7 +281,7 @@ src/common/ring_buffer.i: src/common/ring_buffer.c.i
 
 # target to preprocess a source file
 src/common/ring_buffer.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/common/ring_buffer.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/common/ring_buffer.c.i
 .PHONY : src/common/ring_buffer.c.i
 
 src/common/ring_buffer.s: src/common/ring_buffer.c.s
@@ -276,7 +289,7 @@ src/common/ring_buffer.s: src/common/ring_buffer.c.s
 
 # target to generate assembly for a file
 src/common/ring_buffer.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/common/ring_buffer.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/common/ring_buffer.c.s
 .PHONY : src/common/ring_buffer.c.s
 
 src/common/trace.o: src/common/trace.c.o
@@ -284,7 +297,7 @@ src/common/trace.o: src/common/trace.c.o
 
 # target to build an object file
 src/common/trace.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/common/trace.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/common/trace.c.o
 .PHONY : src/common/trace.c.o
 
 src/common/trace.i: src/common/trace.c.i
@@ -292,7 +305,7 @@ src/common/trace.i: src/common/trace.c.i
 
 # target to preprocess a source file
 src/common/trace.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/common/trace.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/common/trace.c.i
 .PHONY : src/common/trace.c.i
 
 src/common/trace.s: src/common/trace.c.s
@@ -300,7 +313,7 @@ src/common/trace.s: src/common/trace.c.s
 
 # target to generate assembly for a file
 src/common/trace.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/common/trace.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/common/trace.c.s
 .PHONY : src/common/trace.c.s
 
 src/drivers/io.o: src/drivers/io.c.o
@@ -308,7 +321,7 @@ src/drivers/io.o: src/drivers/io.c.o
 
 # target to build an object file
 src/drivers/io.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/drivers/io.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/drivers/io.c.o
 .PHONY : src/drivers/io.c.o
 
 src/drivers/io.i: src/drivers/io.c.i
@@ -316,7 +329,7 @@ src/drivers/io.i: src/drivers/io.c.i
 
 # target to preprocess a source file
 src/drivers/io.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/drivers/io.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/drivers/io.c.i
 .PHONY : src/drivers/io.c.i
 
 src/drivers/io.s: src/drivers/io.c.s
@@ -324,7 +337,7 @@ src/drivers/io.s: src/drivers/io.c.s
 
 # target to generate assembly for a file
 src/drivers/io.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/drivers/io.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/drivers/io.c.s
 .PHONY : src/drivers/io.c.s
 
 src/drivers/led.o: src/drivers/led.c.o
@@ -332,7 +345,7 @@ src/drivers/led.o: src/drivers/led.c.o
 
 # target to build an object file
 src/drivers/led.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/drivers/led.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/drivers/led.c.o
 .PHONY : src/drivers/led.c.o
 
 src/drivers/led.i: src/drivers/led.c.i
@@ -340,7 +353,7 @@ src/drivers/led.i: src/drivers/led.c.i
 
 # target to preprocess a source file
 src/drivers/led.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/drivers/led.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/drivers/led.c.i
 .PHONY : src/drivers/led.c.i
 
 src/drivers/led.s: src/drivers/led.c.s
@@ -348,7 +361,7 @@ src/drivers/led.s: src/drivers/led.c.s
 
 # target to generate assembly for a file
 src/drivers/led.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/drivers/led.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/drivers/led.c.s
 .PHONY : src/drivers/led.c.s
 
 src/drivers/mcu_init.o: src/drivers/mcu_init.c.o
@@ -356,7 +369,7 @@ src/drivers/mcu_init.o: src/drivers/mcu_init.c.o
 
 # target to build an object file
 src/drivers/mcu_init.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/drivers/mcu_init.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/drivers/mcu_init.c.o
 .PHONY : src/drivers/mcu_init.c.o
 
 src/drivers/mcu_init.i: src/drivers/mcu_init.c.i
@@ -364,7 +377,7 @@ src/drivers/mcu_init.i: src/drivers/mcu_init.c.i
 
 # target to preprocess a source file
 src/drivers/mcu_init.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/drivers/mcu_init.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/drivers/mcu_init.c.i
 .PHONY : src/drivers/mcu_init.c.i
 
 src/drivers/mcu_init.s: src/drivers/mcu_init.c.s
@@ -372,7 +385,7 @@ src/drivers/mcu_init.s: src/drivers/mcu_init.c.s
 
 # target to generate assembly for a file
 src/drivers/mcu_init.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/drivers/mcu_init.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/drivers/mcu_init.c.s
 .PHONY : src/drivers/mcu_init.c.s
 
 src/drivers/uart.o: src/drivers/uart.c.o
@@ -380,7 +393,7 @@ src/drivers/uart.o: src/drivers/uart.c.o
 
 # target to build an object file
 src/drivers/uart.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/drivers/uart.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/drivers/uart.c.o
 .PHONY : src/drivers/uart.c.o
 
 src/drivers/uart.i: src/drivers/uart.c.i
@@ -388,7 +401,7 @@ src/drivers/uart.i: src/drivers/uart.c.i
 
 # target to preprocess a source file
 src/drivers/uart.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/drivers/uart.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/drivers/uart.c.i
 .PHONY : src/drivers/uart.c.i
 
 src/drivers/uart.s: src/drivers/uart.c.s
@@ -396,7 +409,7 @@ src/drivers/uart.s: src/drivers/uart.c.s
 
 # target to generate assembly for a file
 src/drivers/uart.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/drivers/uart.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/drivers/uart.c.s
 .PHONY : src/drivers/uart.c.s
 
 src/test/test.o: src/test/test.c.o
@@ -404,7 +417,7 @@ src/test/test.o: src/test/test.c.o
 
 # target to build an object file
 src/test/test.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/test/test.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/test/test.c.o
 .PHONY : src/test/test.c.o
 
 src/test/test.i: src/test/test.c.i
@@ -412,7 +425,7 @@ src/test/test.i: src/test/test.c.i
 
 # target to preprocess a source file
 src/test/test.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/test/test.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/test/test.c.i
 .PHONY : src/test/test.c.i
 
 src/test/test.s: src/test/test.c.s
@@ -420,7 +433,7 @@ src/test/test.s: src/test/test.c.s
 
 # target to generate assembly for a file
 src/test/test.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace.dir/build.make CMakeFiles/test_trace.dir/src/test/test.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_assert.dir/build.make CMakeFiles/test_assert.dir/src/test/test.c.s
 .PHONY : src/test/test.c.s
 
 # Help Target
@@ -431,13 +444,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... addr2line"
 	@echo "... cppcheck"
 	@echo "... distclean"
 	@echo "... flash"
 	@echo "... format"
 	@echo "... size"
 	@echo "... symbols"
-	@echo "... test_trace"
+	@echo "... test_assert"
 	@echo "... external/printf/printf.o"
 	@echo "... external/printf/printf.i"
 	@echo "... external/printf/printf.s"

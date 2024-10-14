@@ -47,6 +47,14 @@ else()
 	message(WARNING "READELF Program not found")
 endif()
 
+# Set MSP430 ADDR2LINE program
+find_program(ADDR2LINE msp430-elf-addr2line HINTS ${MSPGCC_BIN_DIR})
+
+if(ADDR2LINE)
+	message(STATUS "ADDR2LINE Program found: ${ADDR2LINE}")
+else()
+	message(WARNING "ADDR2LINE Program not found")
+endif()
 
 # Create the output directory for the executable
 file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${TARGET_HW}")
@@ -54,6 +62,7 @@ file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${TARGET_HW}")
 # Set the defines
 set(HW $ENV{HW})
 set(TEST $ENV{TEST})
+set(ADDR $ENV{ADDR})
 
 # Check if we are building one of the custom targets
 if (CMAKE_CURRENT_SOURCE_DIR)
@@ -101,16 +110,7 @@ set(DEFINES
     TEST=${TEST}
 )
 
-
-#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -I${INCLUDE_DIRS} -I${MSPGCC_INCLUDE_DIR} -I${CMAKE_SOURCE_DIR}/external -D${HW} -DTEST=${TEST} -DPRINTF_INCLUDE_CONFIG_H -Og -g -Wall -Wextra -Werror -Wshadow -Os")
-#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -I${MSPGCC_INCLUDE_DIR} -I${CMAKE_SOURCE_DIR}/external -D${HW} -DTEST=${TEST} -DPRINTF_INCLUDE_CONFIG_H -Og -g -Wall -Wextra -Werror -Wshadow -Os")
-
-#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -D${HW} -DTEST=${TEST}  -Og -g -Wall -Wextra -Werror -Wshadow -Os")
-
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmcu=${MCU} -fshort-enums -Og -g -Wall -Wextra -Werror -Wshadow -Os")
-
-
-#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} -D${HW} -DTEST=${TEST} -DPRINTF_INCLUDE_CONFIG_H --data-sections")
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mmcu=${MCU} -L${MSPGCC_INCLUDE_DIR} -T${LINKER_SCRIPT_PATH} --data-sections")
 
@@ -253,6 +253,14 @@ add_custom_target(size
 	DEPENDS ${TARGET_NAME}
     COMMENT "Checking flash size"
     VERBATIM
+)
+
+
+# Add a custom target to call addr2line
+add_custom_target(addr2line
+	COMMAND ${ADDR2LINE} -e ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${TARGET_NAME} ${ADDR}
+	DEPENDS ${TARGET_NAME}
+	COMMENT "Running addr2line on ${TARGET_NAME} with address ${ADDR}"
 )
 
 # Define the custom target for listing symbols
